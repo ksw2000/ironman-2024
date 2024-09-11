@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:navigation/user.dart';
 import 'package:navigation/user_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -49,6 +50,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               ElevatedButton(
                   onPressed: () {
+                    UserDataLayer.of(context).setUser(User(name: idCtrl.text));
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
                       return const UserPage();

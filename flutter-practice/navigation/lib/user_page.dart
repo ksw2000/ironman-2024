@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:navigation/user.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
@@ -10,12 +11,14 @@ class UserPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('User Page'),
       ),
-      body: const Center(
+      body: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[Text('Hello')],
+            children: <Widget>[
+              Text('Hello ${UserDataLayer.of(context).user?.name}')
+            ],
           ),
         ),
       ),
