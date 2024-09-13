@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:future_builder/user.dart';
 
 class UserPage extends StatelessWidget {
-  const UserPage({super.key});
+  UserPage({super.key});
 
-  Future<String>? _fetch() {
-    return Future.delayed(const Duration(seconds: 2), () => "SOME THING");
-  }
+  final Future<String> _fetch =
+      Future.delayed(const Duration(seconds: 2), () => "SOME THING");
+  final Future<String> _fetchError =
+      Future.delayed(const Duration(seconds: 2), () {
+    throw Exception('ERROR OCCUR');
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class UserPage extends StatelessWidget {
             child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: FutureBuilder(
-                    future: _fetch(),
+                    future: _fetchError,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return Column(
@@ -32,17 +35,19 @@ class UserPage extends StatelessWidget {
                           ],
                         );
                       } else if (snapshot.hasError) {
-                        return Column(children: [
-                          const Icon(
-                            Icons.error_outline,
-                            color: Colors.red,
-                            size: 60,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 16),
-                            child: Text('Error: ${snapshot.error}'),
-                          ),
-                        ]);
+                        return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.error_outline,
+                                color: Colors.red,
+                                size: 60,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 16),
+                                child: Text('Error: ${snapshot.error}'),
+                              ),
+                            ]);
                       }
                       return const CircularProgressIndicator();
                     }))));

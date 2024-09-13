@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
                     UserDataLayer.of(context).setUser(User(name: idCtrl.text));
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                      return const UserPage();
+                      return UserPage();
                     }));
                   },
                   child: const Text('登入'))
