@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:whisper/data/me.dart';
-import 'package:whisper/pages/login.dart';
-// import 'package:whisper/pages/login.dart';
+import 'package:whisper/pages/caht.dart';
+import 'package:whisper/pages/settings.dart';
+import 'package:whisper/pages/home.dart';
 
 class MePage extends StatefulWidget {
   const MePage({super.key});
@@ -11,7 +11,18 @@ class MePage extends StatefulWidget {
 }
 
 class _MePageState extends State<MePage> {
-  bool _isLoggingOut = false;
+  int _selectedIndex = 0;
+  static const List<Widget> _widgetOptions = <Widget>[
+    HomePage(),
+    ChatPage(),
+    SettingsPage(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,39 +31,25 @@ class _MePageState extends State<MePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text('聊天主畫面'),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('Hello ${MeDataLayer.of(context).user?.name}'),
-              const SizedBox(
-                height: 20,
-              ),
-              _isLoggingOut
-                  ? const CircularProgressIndicator()
-                  : OutlinedButton(
-                      onPressed: () async {
-                        setState(() {
-                          _isLoggingOut = true;
-                        });
-                        await Me.logout();
-                        if (context.mounted) {
-                          MeDataLayer.of(context).setUser(null);
-                          Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const LoginPage();
-                          }));
-                        }
-                        setState(() {
-                          _isLoggingOut = false;
-                        });
-                      },
-                      child: const Text("登出")),
-            ],
+      body: _widgetOptions.elementAt(_selectedIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: '主頁',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat),
+            label: '聊天',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: '設定',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.pink,
+        onTap: _onItemTapped,
       ),
     );
   }
