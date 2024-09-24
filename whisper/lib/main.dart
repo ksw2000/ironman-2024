@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:whisper/data/me.dart';
 import 'package:whisper/pages/login.dart';
 import 'package:whisper/pages/me.dart';
+import 'package:whisper/widgets/error.dart';
 
 void main() {
   runApp(const MyApp());
@@ -47,7 +48,8 @@ class RoutingLoginOrMe extends StatefulWidget {
 
 class _RoutingLoginOrMeState extends State<RoutingLoginOrMe> {
   final Future<(bool, Me?)> _checkKeepLogin =
-      Future.delayed(const Duration(seconds: 3), () {
+      Future.delayed(const Duration(seconds: 1), () {
+    // throw (Exception("Unexpected Error"));
     return (false, null);
   });
 
@@ -57,24 +59,7 @@ class _RoutingLoginOrMeState extends State<RoutingLoginOrMe> {
         future: _checkKeepLogin,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Scaffold(
-                appBar: AppBar(
-                  backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-                  title: const Text('登入 Whisper'),
-                ),
-                body: Center(
-                    child: Column(
-                  children: [
-                    const Icon(
-                      Icons.error_outline,
-                      color: Colors.redAccent,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text("${snapshot.error}")
-                  ],
-                )));
+            return Scaffold(body: MyErrorWidget(snapshot.error.toString()));
           } else if (snapshot.hasData) {
             if (snapshot.data!.$1 == false) {
               // 渲染登入畫面
@@ -82,14 +67,10 @@ class _RoutingLoginOrMeState extends State<RoutingLoginOrMe> {
             }
             return const MePage();
           }
-          return Scaffold(
-              appBar: AppBar(
-                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-                title: const Text('登入 Whisper'),
-              ),
-              body: const Center(
-                child: CircularProgressIndicator(),
-              ));
+          return const Scaffold(
+              body: Center(
+            child: CircularProgressIndicator(),
+          ));
         });
   }
 }

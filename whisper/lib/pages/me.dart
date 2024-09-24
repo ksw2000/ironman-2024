@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whisper/pages/caht.dart';
+import 'package:whisper/pages/chat.dart';
 import 'package:whisper/pages/settings.dart';
 import 'package:whisper/pages/home.dart';
 
@@ -12,10 +12,15 @@ class MePage extends StatefulWidget {
 
 class _MePageState extends State<MePage> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
+  static const List<Widget> _widgets = [
     HomePage(),
     ChatPage(),
     SettingsPage(),
+  ];
+  static const List<String> _widgetTitle = [
+    '主頁',
+    '聊天',
+    '設定',
   ];
 
   void _onItemTapped(int index) {
@@ -28,10 +33,9 @@ class _MePageState extends State<MePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('聊天主畫面'),
+        title: Text(_widgetTitle[_selectedIndex]),
       ),
-      body: _widgetOptions.elementAt(_selectedIndex),
+      body: _widgets[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

@@ -14,7 +14,7 @@ class _ChatPageState extends State<ChatPage> {
     return List<Chat>.generate(
         20,
         (index) => Chat(
-            profile: "https://i.imgur.com/1N9WlmT.png",
+            profile: "https://i.imgur.com/91bOTO6.png",
             userName: "さやか-$index",
             userID: 1,
             messages: ["おはよう"]));
@@ -91,7 +91,7 @@ class _ChatCardListViewState extends State<ChatCardListView> {
         _items.addAll(List<Chat>.generate(
             20,
             (index) => Chat(
-                profile: "https://i.imgur.com/1N9WlmT.png",
+                profile: "https://i.imgur.com/91bOTO6.png",
                 userName: "さやか${_items.length + index}",
                 userID: 1,
                 messages: ["おはよう"])));
@@ -109,7 +109,6 @@ class _ChatCardListViewState extends State<ChatCardListView> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
       controller: _scrollController,
       itemCount: _items.length + (_isLoadingMore ? 1 : 0),
       itemBuilder: (context, index) {
@@ -119,9 +118,7 @@ class _ChatCardListViewState extends State<ChatCardListView> {
             child: Center(child: CircularProgressIndicator()),
           );
         }
-        return ListTile(
-          title: ChatCard(_items[index]),
-        );
+        return ChatCard(_items[index]);
       },
     );
   }
@@ -133,28 +130,16 @@ class ChatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        child: InkWell(
-            onTap: () {},
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Image.network(
-                    "https://i.imgur.com/1N9WlmT.png",
-                    width: 50,
-                    height: 50,
-                  ),
-                ),
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(
-                    chatInfo.userName,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 7),
-                  Text(chatInfo.messages.firstOrNull ?? "")
-                ])
-              ],
-            )));
+    return ListTile(
+      leading: chatInfo.profile != null
+          ? Image.network(chatInfo.profile!)
+          : Image.asset("assets/default_profile.png"),
+      title: Text(
+        chatInfo.userName,
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text(chatInfo.messages.firstOrNull ?? ""),
+      onTap: () {},
+    );
   }
 }

@@ -15,9 +15,13 @@ class Me {
 
   static Future<Me> login(String id, String password) async {
     // TODO 向伺服器發送帳密資訊以請求登入
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     return Future.value(const Me(
-        uid: 0, id: "kahou0522", name: "日野下花帆", token: "", profile: null));
+        uid: 0,
+        id: "kahou0522",
+        name: "日野下花帆",
+        token: "",
+        profile: "https://i.imgur.com/DnhwqwV.png"));
   }
 
   static Future<void> logout() async {

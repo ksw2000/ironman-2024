@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('登入 Whisper'),
+        title: const Text('Whisper'),
       ),
       body: Center(
         child: Padding(
@@ -35,6 +35,13 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              const Text(
+                "登入",
+                style: TextStyle(fontSize: 35),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
               TextField(
                 controller: idCtrl,
                 decoration: const InputDecoration(hintText: '帳號'),

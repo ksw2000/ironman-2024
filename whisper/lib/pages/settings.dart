@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:whisper/data/me.dart';
+import 'package:whisper/pages/login.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
+
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
+  bool _isLoggingOut = false;
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +30,26 @@ class SettingsPage extends StatelessWidget {
         ),
         ListTile(
           leading: const Icon(Icons.exit_to_app),
-          title: const Text('登出'),
-          onTap: () {},
-        ),
+          title: Text(!_isLoggingOut ? '登出' : '登出中...'),
+          onTap: !_isLoggingOut
+              ? () async {
+                  setState(() {
+                    _isLoggingOut = true;
+                  });
+                  await Me.logout();
+                  if (context.mounted) {
+                    MeDataLayer.of(context).setUser(null);
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const LoginPage();
+                    }));
+                  }
+                  setState(() {
+                    _isLoggingOut = false;
+                  });
+                }
+              : null,
+        )
       ],
     );
   }
