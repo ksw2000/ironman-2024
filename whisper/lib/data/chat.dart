@@ -3,10 +3,12 @@ class Chat {
     this.profile,
     required this.userName,
     required this.userID,
-    required this.messages,
+    required this.lastMessage,
+    required this.channelID,
   });
   String? profile;
   String userName;
   int userID;
-  List<String> messages = [];
+  int channelID;
+  String? lastMessage;
 }

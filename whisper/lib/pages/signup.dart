@@ -52,12 +52,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     controller: idCtrl,
                     decoration: const InputDecoration(hintText: '帳號'),
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   TextField(
                     controller: idCtrl,
                     decoration: const InputDecoration(hintText: 'Email'),
-                  ),
-                  const SizedBox(
-                    height: 10,
                   ),
                   const SizedBox(
                     height: 10,

@@ -29,6 +29,12 @@ class _SettingsPageState extends State<SettingsPage> {
           onTap: () {},
         ),
         ListTile(
+          leading: const Icon(Icons.pin),
+          title: const Text('端對端加密 PIN 碼'),
+          trailing: const Icon(Icons.arrow_forward_ios),
+          onTap: () {},
+        ),
+        ListTile(
           leading: const Icon(Icons.exit_to_app),
           title: Text(!_isLoggingOut ? '登出' : '登出中...'),
           onTap: !_isLoggingOut

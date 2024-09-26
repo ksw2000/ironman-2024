@@ -49,7 +49,7 @@ class _MePageState extends State<MePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: '設定',
-          ),
+          )
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.pink,

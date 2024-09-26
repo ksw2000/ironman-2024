@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whisper/data/chat.dart';
+import 'package:whisper/pages/channel.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -17,7 +18,8 @@ class _ChatPageState extends State<ChatPage> {
             profile: "https://i.imgur.com/91bOTO6.png",
             userName: "さやか-$index",
             userID: 1,
-            messages: ["おはよう"]));
+            channelID: index,
+            lastMessage: "おはよう"));
   });
 
   @override
@@ -94,7 +96,8 @@ class _ChatCardListViewState extends State<ChatCardListView> {
                 profile: "https://i.imgur.com/91bOTO6.png",
                 userName: "さやか${_items.length + index}",
                 userID: 1,
-                messages: ["おはよう"])));
+                channelID: _items.length + index,
+                lastMessage: "おはよう")));
         _isLoadingMore = false;
       });
     }
@@ -138,8 +141,12 @@ class ChatCard extends StatelessWidget {
         chatInfo.userName,
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
-      subtitle: Text(chatInfo.messages.firstOrNull ?? ""),
-      onTap: () {},
+      subtitle: Text(chatInfo.lastMessage ?? ""),
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return ChannelPage(channelID: chatInfo.channelID);
+        }));
+      },
     );
   }
 }
