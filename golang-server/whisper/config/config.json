@@ -1,0 +1,10 @@
+{
+    "Database": {
+        "Addr":     "localhost:5432",
+        "User":     "postgres",
+        "Password": "example",
+        "Database": "whisper"
+    },
+    "Port": ":8081",
+    "Release": false
+}
